@@ -34,20 +34,23 @@ public class CreatingUserAccount implements Authenticator{
 
     }
 
+    // default constructor to be able to inherit this class to UserChangingDetails
+    public CreatingUserAccount() {}
+
     /* used to authenticate our password whenever a user attempts an action relating
         to their person information. These actions can consist of changing password, username,
         email. Anything relating to their account
      */
     @Override
     public boolean passwordChecker(String password) {
-        return password.equals(userDetails.get("password"));
+        return !password.equals(userDetails.get("password"));
     }
 
     @Override
     public boolean passwordChangerConditions(String userPassword) {
 
         // password cannot be null or shorter than 8 characters
-        if(userPassword == null || userPassword.length() < 7) return false;
+        if(userPassword == null || userPassword.length() < 7) return true;
         /*
             . -> is a wildcard character, it can mean any single character on your keyboard
             * -> means of zero or more occurrences.
@@ -64,8 +67,9 @@ public class CreatingUserAccount implements Authenticator{
         String regexSpecialCharacter = ".*[^a-zA-Z0-9].*";
 
         //complies are regex into patterns
-        Pattern patternFirstName = Pattern.compile(regexUserFirstName);
-        Pattern patternLastName = Pattern.compile(regexUserLastName);
+        //the regex flag (?i) makes the following input case-sensitive
+        Pattern patternFirstName = Pattern.compile("(?i)" + regexUserFirstName);
+        Pattern patternLastName = Pattern.compile("(?i)" + regexUserLastName);
         Pattern patternForUpperCase = Pattern.compile(regexUpperCase);
         Pattern patternForSpecialCharacter = Pattern.compile(regexSpecialCharacter);
 
@@ -76,8 +80,8 @@ public class CreatingUserAccount implements Authenticator{
         Matcher matchSpecialCharacter = patternForSpecialCharacter.matcher(userPassword);
 
         //testing to see if the String matches or does not match the pattern we gave via regex
-        return !matchFirstName.find() && !matchLastName.find() &&
-                matchUpperCase.matches() && matchSpecialCharacter.matches();
+        return matchFirstName.find() || matchLastName.find() ||
+                !matchUpperCase.matches() || !matchSpecialCharacter.matches();
     }
 
     // accessor method to obtain any of our fields stored in the HashMap from our constructor
