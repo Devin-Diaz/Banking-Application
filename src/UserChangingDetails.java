@@ -6,6 +6,7 @@ public class UserChangingDetails extends CreatingUserAccount{
     public UserChangingDetails() { super(); }
 
     // method to authenticate and change a users password
+    //Currently being called in MainApplication class with a successful test case
     public void userPasswordChangerFinal(CreatingUserAccount user) {
         String currentUser = user.getUserDetails("username").toUpperCase();
         Scanner sc = new Scanner(System.in);
@@ -41,6 +42,4 @@ public class UserChangingDetails extends CreatingUserAccount{
                 "NEW PASSWORD: " + user.getUserDetails("password"));
 
     }
-
-
 }
