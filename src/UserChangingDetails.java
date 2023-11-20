@@ -26,13 +26,13 @@ public class UserChangingDetails extends CreatingUserAccount{
         System.out.print("Enter New Password: ");
         newPassword = sc.nextLine();
 
-        if(user.passwordChangerConditions(newPassword)) {
+        if(user.passwordConditions(newPassword)) {
             do {
-                System.out.println("*INVALID SEQUENCE* MUST HAVE SPECIAL CHAR, UPPERCASE," +
+                System.out.println("*INVALID SEQUENCE* MUST HAVE SPECIAL CHARACTER, UPPERCASE CHARACTER," +
                         "NON FIRST AND LAST NAME, AND 8 OR MORE CHARACTERS!");
                 System.out.print("Enter New Password: ");
                 newPassword = sc.nextLine();
-            }while(user.passwordChangerConditions(newPassword));
+            }while(user.passwordConditions(newPassword));
         }
 
         user.setUserDetails("password", newPassword);
