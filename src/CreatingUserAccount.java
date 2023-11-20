@@ -28,7 +28,12 @@ public class CreatingUserAccount implements Authenticator{
         userDetails.put("DOB", DOB);
         userDetails.put("email", email);
         userDetails.put("username", username);
-        userDetails.put("password", password);
+
+        //WORK ON THIS FEATURE, FOR FIRST TIME PASSWORD CREATORS
+        if(passwordConditions(password)) {
+            userDetails.put("password", password);
+        }
+
         userDetails.put("securityQuestionOne", securityQuestionOne);
         userDetails.put("securityQuestionTwo", securityQuestionTwo);
 
@@ -47,7 +52,7 @@ public class CreatingUserAccount implements Authenticator{
     }
 
     @Override
-    public boolean passwordChangerConditions(String userPassword) {
+    public boolean passwordConditions(String userPassword) {
 
         // password cannot be null or shorter than 8 characters
         if(userPassword == null || userPassword.length() < 7) return true;
