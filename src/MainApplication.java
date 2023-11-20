@@ -7,18 +7,15 @@ public class MainApplication {
 
         Scanner sc = new Scanner(System.in);
 
-        CreatingUserAccount user = new CreatingUserAccount(
-                "Devin", "Diaz", "04-17-04",
-                "ddiaz@harvard.edu", "ddiaz71", "Kimurabjj",
-                "brighton", "camry"
-        );
 
 
-        System.out.print("Change password (Y/N): ");
-        String ans = sc.nextLine();
-        if(ans.equalsIgnoreCase("y")) {
-            changingUserPassword(user);
-        }
+
+
+//        System.out.print("Change password (Y/N): ");
+//        String ans = sc.nextLine();
+//        if(ans.equalsIgnoreCase("y")) {
+//            changingUserPassword(user); <- an object that was made in this method static main()
+//        }
     }
 
     //new static void method to change users password
@@ -27,4 +24,14 @@ public class MainApplication {
         newUserPassword.userPasswordChangerFinal(user);
     }
 
+    private static void settingUserPassword(CreatingUserAccount user) {
+        Scanner sc = new Scanner(System.in);
+        String password;
+        System.out.println("PLEASE CREATE PASSWORD \n" +
+                "PASSWORD MUST CONTAIN: \n" +
+                "8 OR MORE CHARACTERS \n" +
+                "SPECIAL CHARACTER e.g !, @, #, $, %,...\n" +
+                "UPPERCASE CHARACTER \n" +
+                "AND CANNOT HAVE YOUR FIRST OR LAST NAME.");
+    }
 }
