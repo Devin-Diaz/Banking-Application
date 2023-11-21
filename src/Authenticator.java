@@ -5,4 +5,6 @@ public interface Authenticator {
     //changed the name of this method since it will be used for passwords in general, not just password changes
     public boolean passwordConditions(String password);
 
+    public boolean userNameConditions(String userName);
+
 }
