@@ -7,6 +7,10 @@ public class MainApplication {
 
         Scanner sc = new Scanner(System.in);
 
+        CreatingUserAccount user = new CreatingUserAccount(
+                "Devin", "Diaz", "04=17=04", "diazdev@gmail.com",
+                "ddiaz3", "kimurabjj", "camry", "bb"
+        );
 
 
 
@@ -14,7 +18,7 @@ public class MainApplication {
 //        System.out.print("Change password (Y/N): ");
 //        String ans = sc.nextLine();
 //        if(ans.equalsIgnoreCase("y")) {
-//            changingUserPassword(user); <- an object that was made in this method static main()
+//            changingUserPassword(user); //<- an object that was made in this method static main()
 //        }
     }
 
