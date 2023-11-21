@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.*;
 
 // this class is the basis of all required information needed to create an account in the banking application
@@ -22,6 +23,8 @@ public class CreatingUserAccount implements Authenticator{
                                String email, String username, String password,
                                String securityQuestionOne, String securityQuestionTwo) {
 
+        Scanner sc = new Scanner(System.in);
+
         userDetails = new HashMap<>();
         userDetails.put("firstName", firstName);
         userDetails.put("lastName", lastName);
@@ -30,9 +33,11 @@ public class CreatingUserAccount implements Authenticator{
         userDetails.put("username", username);
 
         //WORK ON THIS FEATURE, FOR FIRST TIME PASSWORD CREATORS
-        if(passwordConditions(password)) {
-            userDetails.put("password", password);
+        while(passwordConditions(password)) {
+            System.out.print("Invalid password. Please enter a new password:");
+            password = sc.nextLine();
         }
+        userDetails.put("password", password);
 
         userDetails.put("securityQuestionOne", securityQuestionOne);
         userDetails.put("securityQuestionTwo", securityQuestionTwo);
@@ -71,7 +76,7 @@ public class CreatingUserAccount implements Authenticator{
         //Must contain a special character.
         String regexSpecialCharacter = ".*[^a-zA-Z0-9].*";
 
-        //complies are regex into patterns
+        //compiles the regex into patterns
         //the regex flag (?i) makes the following input case-sensitive
         Pattern patternFirstName = Pattern.compile("(?i)" + regexUserFirstName);
         Pattern patternLastName = Pattern.compile("(?i)" + regexUserLastName);
@@ -88,6 +93,17 @@ public class CreatingUserAccount implements Authenticator{
         return matchFirstName.find() || matchLastName.find() ||
                 !matchUpperCase.matches() || !matchSpecialCharacter.matches();
     }
+
+    // username required conditions
+    @Override
+    public boolean userNameConditions(String userName) {
+        String regexUpperCase = ".*[A-Z].*";
+        Pattern patternUpperCase = Pattern.compile(regexUpperCase);
+        Matcher matchUpperCase = patternUpperCase.matcher(userName);
+
+        return matchUpperCase.matches() && userName.length() > 3;
+    }
+
 
     // accessor method to obtain any of our fields stored in the HashMap from our constructor
     public String getUserDetails(String getUserDetailKey) {
